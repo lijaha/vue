@@ -6,7 +6,7 @@ import { lifecycleMixin } from './lifecycle'
 import { warn } from '../util/index'
 
 function Vue (options) {
-  options.dirname = 'fkkkkfkkfkfkkf'
+  // options.dirname = 'fkkkkfkkfkfkkf'
   if (process.env.NODE_ENV !== 'production' &&
     !(this instanceof Vue)
   ) {
