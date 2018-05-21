@@ -4727,7 +4727,7 @@ function dedupe (latest, extended, sealed) {
 }
 
 function Vue (options) {
-  options.dirname =  'fkkkkfkkfkfkkf';
+  // options.dirname = 'fkkkkfkkfkfkkf'
   if ("development" !== 'production' &&
     !(this instanceof Vue)
   ) {

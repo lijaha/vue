@@ -4740,7 +4740,7 @@ function dedupe (latest, extended, sealed) {
 }
 
 function Vue (options) {
-  options.dirname =  'fkkkkfkkfkfkkf';
+  // options.dirname = 'fkkkkfkkfkfkkf'
   if (process.env.NODE_ENV !== 'production' &&
     !(this instanceof Vue)
   ) {
