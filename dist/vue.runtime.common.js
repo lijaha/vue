@@ -1,6 +1,6 @@
 /*!
  * Vue.js v2.5.0
- * (c) 2014-2017 Evan You
+ * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
 'use strict';
@@ -416,7 +416,7 @@ var config = ({
    * Exposed for legacy reasons
    */
   _lifecycleHooks: LIFECYCLE_HOOKS
-});
+})
 
 /*  */
 
@@ -771,14 +771,14 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
 /*  */
 
 
-var uid$1 = 0;
+var uid = 0;
 
 /**
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
 var Dep = function Dep () {
-  this.id = uid$1++;
+  this.id = uid++;
   this.subs = [];
 };
 
@@ -2542,7 +2542,7 @@ function lifecycleMixin (Vue) {
       prevEl.__vue__ = null;
     }
     if (vm.$el) {
-      vm.$el.__vue__ = vm;
+      // vm.$el.__vue__ = vm
     }
     // if parent is an HOC, update its $el as well
     if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
@@ -2932,7 +2932,7 @@ function queueWatcher (watcher) {
 
 /*  */
 
-var uid$2 = 0;
+var uid$1 = 0;
 
 /**
  * A watcher parses an expression, collects dependencies,
@@ -2957,7 +2957,7 @@ var Watcher = function Watcher (
     this.deep = this.user = this.lazy = this.sync = false;
   }
   this.cb = cb;
-  this.id = ++uid$2; // uid for batching
+  this.id = ++uid$1; // uid for batching
   this.active = true;
   this.dirty = this.lazy; // for lazy watchers
   this.deps = [];
@@ -4392,13 +4392,13 @@ function renderMixin (Vue) {
 
 /*  */
 
-var uid = 0;
+var uid$2 = 0;
 
 function initMixin (Vue) {
   Vue.prototype._init = function (options) {
     var vm = this;
     // a uid
-    vm._uid = uid++;
+    vm._uid = uid$2++;
 
     var startTag, endTag;
     /* istanbul ignore if */
@@ -4527,20 +4527,20 @@ function dedupe (latest, extended, sealed) {
   }
 }
 
-function Vue$3 (options) {
+function Vue (options) {
   if (process.env.NODE_ENV !== 'production' &&
-    !(this instanceof Vue$3)
+    !(this instanceof Vue)
   ) {
     warn('Vue is a constructor and should be called with the `new` keyword');
   }
   this._init(options);
 }
 
-initMixin(Vue$3);
-stateMixin(Vue$3);
-eventsMixin(Vue$3);
-lifecycleMixin(Vue$3);
-renderMixin(Vue$3);
+initMixin(Vue);
+stateMixin(Vue);
+eventsMixin(Vue);
+lifecycleMixin(Vue);
+renderMixin(Vue);
 
 /*  */
 
@@ -4828,11 +4828,11 @@ var KeepAlive = {
     }
     return vnode
   }
-};
+}
 
 var builtInComponents = {
   KeepAlive: KeepAlive
-};
+}
 
 /*  */
 
@@ -4880,20 +4880,20 @@ function initGlobalAPI (Vue) {
   initAssetRegisters(Vue);
 }
 
-initGlobalAPI(Vue$3);
+initGlobalAPI(Vue);
 
-Object.defineProperty(Vue$3.prototype, '$isServer', {
+Object.defineProperty(Vue.prototype, '$isServer', {
   get: isServerRendering
 });
 
-Object.defineProperty(Vue$3.prototype, '$ssrContext', {
+Object.defineProperty(Vue.prototype, '$ssrContext', {
   get: function get () {
     /* istanbul ignore next */
     return this.$vnode && this.$vnode.ssrContext
   }
 });
 
-Vue$3.version = '2.5.0';
+Vue.version = '2.5.0';
 
 /*  */
 
@@ -5202,7 +5202,7 @@ var ref = {
   destroy: function destroy (vnode) {
     registerRef(vnode, true);
   }
-};
+}
 
 function registerRef (vnode, isRemoval) {
   var key = vnode.data.ref;
@@ -5939,7 +5939,7 @@ var directives = {
   destroy: function unbindDirectives (vnode) {
     updateDirectives(vnode, emptyNode);
   }
-};
+}
 
 function updateDirectives (oldVnode, vnode) {
   if (oldVnode.data.directives || vnode.data.directives) {
@@ -6047,7 +6047,7 @@ function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
 var baseModules = [
   ref,
   directives
-];
+]
 
 /*  */
 
@@ -6126,7 +6126,7 @@ function setAttr (el, key, value) {
 var attrs = {
   create: updateAttrs,
   update: updateAttrs
-};
+}
 
 /*  */
 
@@ -6164,7 +6164,7 @@ function updateClass (oldVnode, vnode) {
 var klass = {
   create: updateClass,
   update: updateClass
-};
+}
 
 /*  */
 
@@ -6275,7 +6275,7 @@ function updateDOMListeners (oldVnode, vnode) {
 var events = {
   create: updateDOMListeners,
   update: updateDOMListeners
-};
+}
 
 /*  */
 
@@ -6363,7 +6363,7 @@ function isInputChanged (elm, newVal) {
 var domProps = {
   create: updateDOMProps,
   update: updateDOMProps
-};
+}
 
 /*  */
 
@@ -6521,7 +6521,7 @@ function updateStyle (oldVnode, vnode) {
 var style = {
   create: updateStyle,
   update: updateStyle
-};
+}
 
 /*  */
 
@@ -7079,7 +7079,7 @@ var transition = inBrowser ? {
       rm();
     }
   }
-} : {};
+} : {}
 
 var platformModules = [
   attrs,
@@ -7088,7 +7088,7 @@ var platformModules = [
   domProps,
   style,
   transition
-];
+]
 
 /*  */
 
@@ -7159,7 +7159,7 @@ var model$1 = {
       }
     }
   }
-};
+}
 
 function setSelected (el, binding, vm) {
   actuallySetSelected(el, binding, vm);
@@ -7293,12 +7293,12 @@ var show = {
       el.style.display = el.__vOriginalDisplay;
     }
   }
-};
+}
 
 var platformDirectives = {
   model: model$1,
   show: show
-};
+}
 
 /*  */
 
@@ -7485,7 +7485,7 @@ var Transition = {
 
     return rawChild
   }
-};
+}
 
 /*  */
 
@@ -7578,6 +7578,9 @@ var TransitionGroup = {
     children.forEach(applyTranslation);
 
     // force reflow to put everything in position
+    var body = document.body;
+    var f = body.offsetHeight; // eslint-disable-line
+
     children.forEach(function (c) {
       if (c.data.moved) {
         var el = c.elm;
@@ -7622,7 +7625,7 @@ var TransitionGroup = {
       return (this._hasMove = info.hasTransform)
     }
   }
-};
+}
 
 function callPendingCbs (c) {
   /* istanbul ignore if */
@@ -7655,26 +7658,26 @@ function applyTranslation (c) {
 var platformComponents = {
   Transition: Transition,
   TransitionGroup: TransitionGroup
-};
+}
 
 /*  */
 
 // install platform specific utils
-Vue$3.config.mustUseProp = mustUseProp;
-Vue$3.config.isReservedTag = isReservedTag;
-Vue$3.config.isReservedAttr = isReservedAttr;
-Vue$3.config.getTagNamespace = getTagNamespace;
-Vue$3.config.isUnknownElement = isUnknownElement;
+Vue.config.mustUseProp = mustUseProp;
+Vue.config.isReservedTag = isReservedTag;
+Vue.config.isReservedAttr = isReservedAttr;
+Vue.config.getTagNamespace = getTagNamespace;
+Vue.config.isUnknownElement = isUnknownElement;
 
 // install platform runtime directives & components
-extend(Vue$3.options.directives, platformDirectives);
-extend(Vue$3.options.components, platformComponents);
+extend(Vue.options.directives, platformDirectives);
+extend(Vue.options.components, platformComponents);
 
 // install platform patch function
-Vue$3.prototype.__patch__ = inBrowser ? patch : noop;
+Vue.prototype.__patch__ = inBrowser ? patch : noop;
 
 // public mount method
-Vue$3.prototype.$mount = function (
+Vue.prototype.$mount = function (
   el,
   hydrating
 ) {
@@ -7684,10 +7687,10 @@ Vue$3.prototype.$mount = function (
 
 // devtools global hook
 /* istanbul ignore next */
-Vue$3.nextTick(function () {
+Vue.nextTick(function () {
   if (config.devtools) {
     if (devtools) {
-      devtools.emit('init', Vue$3);
+      devtools.emit('init', Vue);
     } else if (process.env.NODE_ENV !== 'production' && isChrome) {
       console[console.info ? 'info' : 'log'](
         'Download the Vue Devtools extension for a better development experience:\n' +
@@ -7709,4 +7712,4 @@ Vue$3.nextTick(function () {
 
 /*  */
 
-module.exports = Vue$3;
+module.exports = Vue;

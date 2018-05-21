@@ -4,7 +4,7 @@
 	(factory((global.VueTemplateCompiler = {})));
 }(this, (function (exports) { 'use strict';
 
-var splitRE$1 = /\r?\n/g;
+var splitRE = /\r?\n/g;
 var emptyRE = /^\s*$/;
 var needFixRE = /^(\r?\n)*[\t\s]/;
 
@@ -12,7 +12,7 @@ var deIndent = function deindent (str) {
   if (!needFixRE.test(str)) {
     return str
   }
-  var lines = str.split(splitRE$1);
+  var lines = str.split(splitRE);
   var min = Infinity;
   var type, cur, c;
   for (var i = 0; i < lines.length; i++) {
@@ -184,17 +184,9 @@ var camelize = cached(function (str) {
 /**
  * Capitalize a string.
  */
-var capitalize = cached(function (str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-});
 
-/**
- * Hyphenate a camelCase string.
- */
-var hyphenateRE = /\B([A-Z])/g;
-var hyphenate = cached(function (str) {
-  return str.replace(hyphenateRE, '-$1').toLowerCase()
-});
+
+
 
 /**
  * Simple bind, faster than native
@@ -590,7 +582,7 @@ function parseHTML (html, options) {
 
 /*  */
 
-var splitRE = /\r?\n/g;
+var splitRE$1 = /\r?\n/g;
 var replaceRE = /./g;
 var isSpecialTag = makeMap('script,style,template', true);
 
@@ -687,7 +679,7 @@ function parseComponent (
     if (pad === 'space') {
       return content.slice(0, block.start).replace(replaceRE, ' ')
     } else {
-      var offset = content.slice(0, block.start).split(splitRE).length;
+      var offset = content.slice(0, block.start).split(splitRE$1).length;
       var padChar = block.type === 'script' && !block.lang
         ? '//\n'
         : '\n';
@@ -830,7 +822,7 @@ var config = ({
    * Exposed for legacy reasons
    */
   _lifecycleHooks: LIFECYCLE_HOOKS
-});
+})
 
 /*  */
 
@@ -1022,7 +1014,7 @@ var isServerRendering = function () {
 };
 
 // detect devtools
-
+var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
 /* istanbul ignore next */
 function isNative (Ctor) {
@@ -1115,29 +1107,13 @@ var nextTick = (function () {
   }
 })();
 
-var _Set;
 /* istanbul ignore if */ // $flow-disable-line
 if (typeof Set !== 'undefined' && isNative(Set)) {
   // use native Set when available.
-  _Set = Set;
+  
 } else {
   // a non-standard Set polyfill that only works with primitive keys.
-  _Set = (function () {
-    function Set () {
-      this.set = Object.create(null);
-    }
-    Set.prototype.has = function has (key) {
-      return this.set[key] === true
-    };
-    Set.prototype.add = function add (key) {
-      this.set[key] = true;
-    };
-    Set.prototype.clear = function clear () {
-      this.set = Object.create(null);
-    };
-
-    return Set;
-  }());
+  
 }
 
 /*  */
@@ -2137,7 +2113,7 @@ var klass = {
   staticKeys: ['staticClass'],
   transformNode: transformNode,
   genData: genData
-};
+}
 
 /*  */
 
@@ -2204,7 +2180,7 @@ var style = {
   staticKeys: ['staticStyle'],
   transformNode: transformNode$1,
   genData: genData$1
-};
+}
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -3398,13 +3374,13 @@ function addRawAttr (el, name, value) {
 
 var model = {
   preTransformNode: preTransformNode
-};
+}
 
 var modules = [
   klass,
   style,
   model
-];
+]
 
 /*  */
 
@@ -3582,7 +3558,7 @@ var directives = {
   model: model$1,
   text: text,
   html: html
-};
+}
 
 /*  */
 
@@ -3884,7 +3860,7 @@ var baseDirectives = {
   on: on,
   bind: bind$1,
   cloak: noop
-};
+}
 
 /*  */
 
