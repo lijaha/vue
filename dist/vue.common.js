@@ -2668,7 +2668,7 @@ function lifecycleMixin (Vue) {
       prevEl.__vue__ = null;
     }
     if (vm.$el) {
-      // vm.$el.__vue__ = vm
+      vm.$el.__vue__ = vm;
     }
     // if parent is an HOC, update its $el as well
     if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
